@@ -8,6 +8,7 @@ class SampleTestCase(TestCase):
     def test_sample1(self):
         self.assertEqual(1+2, 3)
 
+
 class TaskModelTestCase(TestCase):
     def test_create_task1(self):
         due = timezone.make_aware(datetime(2023, 6, 30, 23, 59, 59))
@@ -18,7 +19,7 @@ class TaskModelTestCase(TestCase):
         self.assertEqual(task.title, 'task1')
         self.assertFalse(task.completed)
         self.assertEqual(task.due_at, due)
-    
+
     def test_create_task2(self):
         task = Task(title="task2")
         task.save()
@@ -65,7 +66,7 @@ class TodoViewTestCase(TestCase):
         client = Client()
         data = {'title': 'TestTask', 'due_at': '2023-06-30 23:59:59'}
         response = client.post('/', data)
-        
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'todo/index.html')
         self.assertEqual(len(response.context['tasks']), 1)
